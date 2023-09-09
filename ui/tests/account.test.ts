@@ -13,6 +13,7 @@ test.describe('create account and change his data', () => {
             await homePage.Header.getSignUp();
 
             await page.waitForTimeout(1000);
+
             // await expect(async () => {
             //     const products = await categoryPage.getProducts();
             //     expect(products.length).toBe(36);

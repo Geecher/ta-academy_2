@@ -59,6 +59,7 @@ test.describe('add first glass to favourites on Sunglasses page', () => {
                 .getAttribute('data-productid');
 
             expect(itemId).toStrictEqual(productId);
+            // a
         });
     });
 });
