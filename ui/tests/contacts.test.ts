@@ -1,6 +1,6 @@
 import { test, expect } from '@Test';
 
-test.use({ trace: 'on' });
+// test.use({ trace: 'on' });
 test.describe('check products quantity on Contacts page', () => {
     test('quantity of products should be equal 36', async ({ page, baseURL, categoryPage }) => {
         await categoryPage.open('contact-lenses');

@@ -1,11 +1,15 @@
+import { Header } from '@Components/header';
 import { Container } from '@Core/container';
 import type { Locator } from '@playwright/test';
 
 export class CategoryPage extends Container {
     protected LOCATORS = {
+        header: this.page.locator('//header[@id="page-header"]'),
         product: this.page.locator('[data-test-name="product"]'),
         footer: this.page.locator('//footer[contains(., "Live Chat" )]'),
     };
+
+    public Header = new Header(this.LOCATORS.header, this.page);
 
     public async open(
         url: 'contact-lenses' | 'sunglasses' | 'eyeglasses-collection'
