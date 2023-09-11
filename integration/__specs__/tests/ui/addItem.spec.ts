@@ -55,7 +55,5 @@ describe('add new item check this, and remove him', () => {
         expect(newFirstItem).not.toStrictEqual(item);
 
         reporter.endStep();
-
-        // expect(title).toStrictEqual('Shopping cart');
     });
 });
