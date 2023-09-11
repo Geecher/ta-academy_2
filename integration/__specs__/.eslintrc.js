@@ -28,6 +28,9 @@ module.exports = {
         '@typescript-eslint/naming-convention': [
             'error',
             {
+                endOfLine: 'auto',
+            },
+            {
                 selector: 'default',
                 format: ['camelCase'],
             },
