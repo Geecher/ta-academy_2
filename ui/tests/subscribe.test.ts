@@ -1,45 +1,32 @@
-import { test, expect } from '@playwright/test';
-import { faker } from '@faker-js/faker';
-import { DataLayer } from '@Utils/dataLayer';
+import { test, expect } from '@Test';
 
 test.describe('scroll to "Newsletter Subscription" section and subscribe to the newsletter', () => {
-    test.beforeEach(async ({ page, baseURL }) => {
-        await page.context().addCookies([
-            {
-                name: 'OptanonAlertBoxClosed',
-                value: new Date().toISOString(),
-                url: baseURL,
-            },
-        ]);
-        await page.goto('/', { waitUntil: 'domcontentloaded' });
-    });
-    test('subscribe to the newsletter', async ({ page, baseURL }) => {
-        const footerInput = page.locator('//footer//input[@placeholder="Enter your Email"]');
-        const randomEmail = faker.internet.email();
-        const SinpUpBtn = page.locator('//footer//button[contains(., "Sign Up")]');
-        const dataLayer = new DataLayer(page);
-        const expectedEvent = {
-            event: 'GeneralInteraction',
-            eventAction: 'Newsletter Subscription',
-            eventCategory: 'Footer - D',
-            eventLabel: 'Success',
-        };
+    test('subscribe to the newsletter', async ({ page, baseURL, homePage, dataLayer }) => {
+        await homePage.open();
 
         await test.step('scroll to footer and subscribe', async () => {
-            await footerInput.scrollIntoViewIfNeeded();
-            await footerInput.fill(randomEmail);
-            await SinpUpBtn.click();
+            await homePage.FooterSub.scrollToFooter();
+            await homePage.FooterSub.subscribe();
         });
 
         await test.step('check dataLayer', async () => {
-            const [event] = await dataLayer.waitForDataLayer({
+            const expectedEvent = {
                 event: 'GeneralInteraction',
-                eventCategory: 'Footer - D',
                 eventAction: 'Newsletter Subscription',
+                eventCategory: 'Footer - D',
                 eventLabel: 'Success',
-            });
+            };
 
-            expect(event).toStrictEqual(expectedEvent);
+            await expect(async () => {
+                const [event] = await dataLayer.waitForDataLayer({
+                    event: 'GeneralInteraction',
+                    eventCategory: 'Footer - D',
+                    eventAction: 'Newsletter Subscription',
+                    eventLabel: 'Success',
+                });
+
+                expect(event).toStrictEqual(expectedEvent);
+            }).toPass();
         });
     });
 });
