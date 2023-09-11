@@ -1,6 +1,5 @@
 import { test, expect } from '@Test';
 
-// test.use({ trace: 'on' });
 test.describe('create account and change his data', () => {
     test('open the sign up modal, create account and change First Name and Last Name', async ({
         page,
@@ -34,9 +33,6 @@ test.describe('create account and change his data', () => {
 
                 expect(event).toStrictEqual(expectedEvent);
             }).toPass();
-
-            // await page.waitForTimeout(2000);
-            // const a = console.log(await page.evaluate(() => window.dataLayer));
         });
 
         await accountPage.open();
