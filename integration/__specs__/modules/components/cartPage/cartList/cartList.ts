@@ -11,4 +11,12 @@ export class CartList extends Component {
         const cartItems = cartItemsElements.map(item => new CartItem(item));
         return cartItems;
     }
+
+    public async deleteAllElements(): Promise<void> {
+        const items = await this.getCartItems();
+
+        for (const item of items) {
+            await item.deleteElement();
+        }
+    }
 }
